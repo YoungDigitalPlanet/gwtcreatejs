@@ -1,0 +1,14 @@
+<project id="eu.ydp.empiria.utils.gwtCreateJs" version="${revision}" branch="${version}">
+	<displayName>gwtCreateJs</displayName>
+	<description>gwtCreateJs</description>
+	<author>mkaldonek</author>
+	<about src="about.html" />
+
+	<scm type="svn" href="https://svn.intranet.ydp/ydp/projects/empiria/libs/gwtcreatejs/trunk" />
+	<artifact name="jar file" href="dist/gwtcreatejs.jar" />
+	
+	<classification>
+		<label>JavaScript</label>
+		<label>Empiria</label>
+	</classification>
+</project>
