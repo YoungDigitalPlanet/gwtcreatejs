@@ -4,6 +4,7 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.JavaScriptObject;
 
 import eu.ydp.gwtcreatejs.client.Stage;
+import eu.ydp.gwtcreatejs.client.Ticker;
 
 public class CreateJsContent {
 	
@@ -29,17 +30,26 @@ public class CreateJsContent {
 	}
 	
 	private void initializeResource(Manifest manifest){
+		JavaScriptObject engine = null;
 		Stage stage = Stage.create(canvas.getCanvasElement());
+		JavaScriptObject resource = getResourceObject(manifest.getPackageName(), manifest.getClassName()); 
 		
-		stage.addChild(getResourceObject(manifest.getPackageName(), manifest.getClassName()));
+		stage.addChild(resource);
 		stage.update();
 		
-		setTicker(stage);
+		if(manifest.hasEngineClass()){
+			engine = initializeResourceEngine(resource, stage, manifest.getPackageName(), manifest.getEngineClassName());
+		}
+		setTicker((engine == null)? stage: engine);
 	}
 	
-	private final native void setTicker(JavaScriptObject jso)/*-{
-		$wnd.Ticker.setFPS(25);
-		$wnd.Ticker.addListener(jso);
+	private void setTicker(JavaScriptObject jso){
+		Ticker.setFPS(25);
+		Ticker.addListener(jso);
+	}
+	
+	private final native JavaScriptObject initializeResourceEngine(JavaScriptObject resource, JavaScriptObject stage, String packageName, String className)/*-{
+		return new $wnd[packageName][className](resource, stage);
 	}-*/;
 	
 	private final native JavaScriptObject getResourceObject(String packageName, String className)/*-{

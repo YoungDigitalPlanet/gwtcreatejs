@@ -37,6 +37,8 @@ public class Manifest {
 	
 	public static final String ATTR_PACKAGE = "package";
 	
+	private static final String ENGINE_SUFFIX = "Engine";
+	
 	private double width;
 	
 	private double height;
@@ -48,6 +50,8 @@ public class Manifest {
 	private List<String> scripts;
 	
 	private List<AssetFileInfo> assetInfos;
+	
+	private String engineClassName;
 	
 	public Manifest(Document document, String baseURL){
 		parseDocument(document, baseURL);
@@ -65,6 +69,21 @@ public class Manifest {
 		return className;
 	}
 	
+	public String getEngineClassName(){
+		if(engineClassName == null){
+			String searchedName = className.concat(ENGINE_SUFFIX);
+			
+			for(String script: scripts){
+				if(script.indexOf(searchedName.concat(".js")) >= 0){
+					engineClassName = searchedName;
+					break;
+				}
+			}
+		}
+		
+		return engineClassName; 
+	}
+	
 	public String getPackageName(){
 		return packageName;
 	}
@@ -75,6 +94,10 @@ public class Manifest {
 	
 	public List<AssetFileInfo> getAssetInfos(){
 		return assetInfos;
+	}
+	
+	public boolean hasEngineClass(){
+		return getEngineClassName() != null;
 	}
 	
 	private void parseDocument(Document document, String baseURL){

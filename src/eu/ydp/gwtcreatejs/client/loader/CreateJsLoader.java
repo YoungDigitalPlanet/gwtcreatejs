@@ -78,23 +78,32 @@ public class CreateJsLoader {
 			injectScriptFile(scripts.get(i));
 	}
 	
-	private void injectScriptFile(String path){
-		ScriptInjector.fromUrl(path).setWindow(ScriptInjector.TOP_WINDOW).
-			setCallback(new Callback<Void, Exception>() {
-			
-				@Override
-				public void onSuccess(Void result) {
-					injectCounter++;
-					
-					if(injectCounter == manifest.getScripts().size())
-						initializeResource();
-				}
+	private void injectScriptFile(final String path){
+		if(!ScriptRegistry.isRegistered(path)){
+			ScriptInjector.fromUrl(path).setWindow(ScriptInjector.TOP_WINDOW).
+				setCallback(new Callback<Void, Exception>() {
 				
-				@Override
-				public void onFailure(Exception reason) {
-									
-				}
-			}).inject();
+					@Override
+					public void onSuccess(Void result) {
+						ScriptRegistry.register(path);
+						onScriptInjectionSuccess();					
+					}
+					
+					@Override
+					public void onFailure(Exception reason) {
+										
+					}
+				}).inject();
+		}else{
+			onScriptInjectionSuccess();
+		}
+	}
+	
+	private void onScriptInjectionSuccess(){
+		injectCounter++;
+		
+		if(injectCounter == manifest.getScripts().size())
+			initializeResource();
 	}
 	
 	private void initializeResource(){
