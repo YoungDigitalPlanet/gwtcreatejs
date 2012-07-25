@@ -10,7 +10,7 @@ import eu.ydp.gwtcreatejs.client.loader.AssetFileInfo;
 
 public class PreloadJs extends JavaScriptObject {
 	
-	protected PreloadJs(){}
+	protected PreloadJs(){} // NOPMD by MKaldonek on 25.07.12 14:22
 	
 	public static native PreloadJs create(boolean useXHR2)/*-{
 		return new $wnd.PreloadJS(useXHR2);

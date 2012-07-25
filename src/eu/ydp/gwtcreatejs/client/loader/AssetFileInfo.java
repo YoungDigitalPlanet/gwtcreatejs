@@ -8,18 +8,16 @@ public class AssetFileInfo {
 	
 	public static final String SOUND = "sound";
 	
-	private String source;
+	private final String source;
 	
-	private String type;
+	private final String type;
 	
-	private String id;
+	private final String id;
 	
 	public AssetFileInfo(Element element, String baseURL){
-		source = element.getAttribute(Manifest.ATTR_SRC);
+		source = baseURL.concat(element.getAttribute(Manifest.ATTR_SRC));
 		type = element.getAttribute(Manifest.ATTR_TYPE);
 		id = element.getAttribute(Manifest.ATTR_ID);
-		
-		source = baseURL.concat(source);
 	}
 	
 	public String getSource(){

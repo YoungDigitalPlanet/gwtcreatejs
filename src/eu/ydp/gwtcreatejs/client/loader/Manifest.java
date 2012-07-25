@@ -137,7 +137,7 @@ public class Manifest {
 		NodeList assetNodes = element.getElementsByTagName(TAG_ASSETFILE);
 		
 		for(int i = 0; i < assetNodes.getLength(); i++){
-			AssetFileInfo info = new AssetFileInfo((Element)assetNodes.item(i), baseURL);
+			AssetFileInfo info = new AssetFileInfo((Element)assetNodes.item(i), baseURL); // NOPMD by MKaldonek on 25.07.12 14:21
 			assetInfos.add(info);
 		}
 	}
@@ -146,8 +146,9 @@ public class Manifest {
 		Element searchedElement = null;
 		NodeList nodeList = parent.getElementsByTagName(childTagName);
 		
-		if(nodeList.getLength() > 0)
+		if(nodeList.getLength() > 0){
 			searchedElement = (Element)nodeList.item(0);
+		}
 		
 		return searchedElement;
 	}

@@ -28,7 +28,7 @@ public class CreateJsLoader {
 	
 	private CreateJsContent content;
 	
-	{
+	public CreateJsLoader(){
 		initializeSound();
 	}
 	
@@ -67,8 +67,9 @@ public class CreateJsLoader {
 	}
 	
 	public void unload(){
-		if(content != null)
+		if(content != null){
 			content.destroy();
+		}
 	}
 	
 	private void onMainifestLoad(Document document, String baseURL){
@@ -79,36 +80,38 @@ public class CreateJsLoader {
 	private void injectScripts(List<String> scripts){
 		injectCounter = 0;
 		
-		for(int i = 0; i < scripts.size(); i++)
+		for(int i = 0; i < scripts.size(); i++){
 			injectScriptFile(scripts.get(i));
+		}
 	}
 	
 	private void injectScriptFile(final String path){
-		if(!ScriptRegistry.isRegistered(path)){
-			ScriptInjector.fromUrl(path).setWindow(ScriptInjector.TOP_WINDOW).
-				setCallback(new Callback<Void, Exception>() {
-				
-					@Override
-					public void onSuccess(Void result) {
-						ScriptRegistry.register(path);
-						onScriptInjectionSuccess();					
-					}
-					
-					@Override
-					public void onFailure(Exception reason) {
-										
-					}
-				}).inject();
-		}else{
+		if(ScriptRegistry.isRegistered(path)){
 			onScriptInjectionSuccess();
+		}else{
+			ScriptInjector.fromUrl(path).setWindow(ScriptInjector.TOP_WINDOW).
+			setCallback(new Callback<Void, Exception>() {
+			
+				@Override
+				public void onSuccess(Void result) {
+					ScriptRegistry.register(path);
+					onScriptInjectionSuccess();					
+				}
+				
+				@Override
+				public void onFailure(Exception reason) {
+									
+				}
+			}).inject();
 		}
 	}
 	
 	private void onScriptInjectionSuccess(){
 		injectCounter++;
 		
-		if(injectCounter == manifest.getScripts().size())
+		if(injectCounter == manifest.getScripts().size()){
 			initializeResource();
+		}
 	}
 	
 	private void initializeResource(){

@@ -2,9 +2,9 @@ package eu.ydp.gwtcreatejs.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class Ticker extends JavaScriptObject {
+public class Ticker extends JavaScriptObject { // NOPMD by MKaldonek on 25.07.12 14:28
 	
-	protected Ticker(){};
+	protected Ticker(){}; // NOPMD by MKaldonek on 25.07.12 14:28
 	
 	public static native void setFPS(int fps)/*-{
 		$wnd.Ticker.setFPS(25);

@@ -3,7 +3,7 @@ package eu.ydp.gwtcreatejs.client.loader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScriptRegistry {
+public class ScriptRegistry { // NOPMD by MKaldonek on 25.07.12 14:29
 	
 	private static Map<String, Integer> registry = new HashMap<String, Integer>(); 
 	

@@ -4,7 +4,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 public class FileLoadEvent extends JavaScriptObject {
 	
-	protected FileLoadEvent(){};
+	protected FileLoadEvent(){}; // NOPMD by MKaldonek on 25.07.12 14:17
 	
 	public final native String getId()/*-{
 		return this.id;

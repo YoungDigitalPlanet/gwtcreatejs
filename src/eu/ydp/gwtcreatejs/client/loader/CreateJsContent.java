@@ -8,7 +8,7 @@ import eu.ydp.gwtcreatejs.client.Ticker;
 
 public class CreateJsContent {
 	
-	private Canvas canvas;
+	private final Canvas canvas;
 	
 	private JavaScriptObject resource;
 	
@@ -16,15 +16,11 @@ public class CreateJsContent {
 	
 	private Stage stage;
 	
-	private Manifest manifest;
+	private final Manifest manifest;
 	
-	public CreateJsContent(Manifest manifest){
-		create(manifest);
-	}
-	
-	public void create(Manifest mf){
+	public CreateJsContent(Manifest mnf){
 		canvas = Canvas.createIfSupported();
-		manifest = mf;
+		manifest = mnf;
 		
 		if(canvas != null){
 			canvas.getElement().setAttribute("width", String.valueOf(manifest.getWidth()));
@@ -36,6 +32,10 @@ public class CreateJsContent {
 	
 	public Canvas getCanvas(){
 		return canvas;
+	}
+	
+	public JavaScriptObject getResource(){
+		return resource;
 	}
 	
 	public void destroy(){

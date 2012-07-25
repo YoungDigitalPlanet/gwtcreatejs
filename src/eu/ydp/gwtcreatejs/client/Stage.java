@@ -5,7 +5,7 @@ import com.google.gwt.dom.client.CanvasElement;
 
 public class Stage extends JavaScriptObject {
 	
-	protected Stage(){}
+	protected Stage(){} // NOPMD by MKaldonek on 25.07.12 14:25
 	
 	public static native Stage create(CanvasElement canvas)/*-{
 		return new $wnd.Stage(canvas);
