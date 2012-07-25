@@ -14,4 +14,8 @@ public class Ticker extends JavaScriptObject {
 		$wnd.Ticker.addListener(listener);
 	}-*/;
 	
+	public static native void removeListener(JavaScriptObject listener)/*-{
+		$wnd.Ticker.removeListener(listener);
+	}-*/;
+	
 }

@@ -66,6 +66,11 @@ public class CreateJsLoader {
 		return content;
 	}
 	
+	public void unload(){
+		if(content != null)
+			content.destroy();
+	}
+	
 	private void onMainifestLoad(Document document, String baseURL){
 		manifest = new Manifest(document, baseURL);
 		injectScripts(manifest.getScripts());
