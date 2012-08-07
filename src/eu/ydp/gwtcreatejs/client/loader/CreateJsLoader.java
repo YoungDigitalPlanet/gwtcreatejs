@@ -29,7 +29,7 @@ public class CreateJsLoader {
 	private CreateJsContent content;
 	
 	public CreateJsLoader(){
-		initializeSound(GWT.getModuleBaseURL());
+		initializeSound();
 	}
 	
 	public void load(String path){
@@ -138,13 +138,9 @@ public class CreateJsLoader {
 		}
 	}
 	
-	private final native void initializeSound(String basePath)/*-{
+	private final native void initializeSound()/*-{
 		if($wnd.playSound == undefined){
-			$wnd.SoundJS.FlashPlugin.BASE_PATH = "assets/";
-			alert("basePath: " + $wnd.SoundJS.FlashPlugin.BASE_PATH);
-			
 			$wnd.playSound = function (name, loop) {
-				alert("activeP: " + $wnd.SoundJS.activePlugin);
 				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0, loop);
 			}
 		}
