@@ -13,7 +13,11 @@ public class PreloadJs extends JavaScriptObject {
 	protected PreloadJs(){} // NOPMD by MKaldonek on 25.07.12 14:22
 	
 	public static native PreloadJs create(boolean useXHR2)/*-{
-		var preload = new $wnd.PreloadJS(useXHR2);
+		var preload = new $wnd.createjs.PreloadJS(useXHR2);
+		var basePath = @com.google.gwt.core.client.GWT::getModuleBaseURL()();
+		
+		$wnd.SoundJS.FlashPlugin.BASE_PATH = basePath + "createjs/assets/";
+		$wnd.SoundJS.registerPlugins([$wnd.SoundJS.FlashPlugin, $wnd.SoundJS.HTMLAudioPlugin]);
 		preload.installPlugin($wnd.SoundJS);
 		
 		return preload;
