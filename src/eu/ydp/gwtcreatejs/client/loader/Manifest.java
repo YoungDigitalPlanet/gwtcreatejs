@@ -96,6 +96,18 @@ public class Manifest {
 		return assetInfos;
 	}
 	
+	public List<AssetFileInfo> getAssetInfos(String type){
+		List<AssetFileInfo> assets = new ArrayList<AssetFileInfo>();
+		
+		for(AssetFileInfo info: assetInfos){
+			if(type.equals(info.getType())){
+				assets.add(info);
+			}
+		}
+		
+		return assets;
+	}
+	
 	public boolean hasEngineClass(){
 		return getEngineClassName() != null;
 	}

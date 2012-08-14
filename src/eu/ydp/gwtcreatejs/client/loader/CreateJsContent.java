@@ -3,6 +3,7 @@ package eu.ydp.gwtcreatejs.client.loader;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.JavaScriptObject;
 
+import eu.ydp.gwtcreatejs.client.SoundJs;
 import eu.ydp.gwtcreatejs.client.Stage;
 import eu.ydp.gwtcreatejs.client.Ticker;
 
@@ -40,6 +41,7 @@ public class CreateJsContent {
 	
 	public void destroy(){
 		Ticker.removeListener(getTickerListener());
+		stopAllSounds();
 	}
 	
 	private void initializeResource(){
@@ -63,6 +65,12 @@ public class CreateJsContent {
 	private void initializeTicker(JavaScriptObject listener){
 		Ticker.setFPS(25);
 		Ticker.addListener(listener);
+	}
+	
+	private void stopAllSounds(){
+		for(AssetFileInfo info: manifest.getAssetInfos(AssetFileInfo.SOUND)){
+			SoundJs.stop(info.getId());
+		}
 	}
 	
 	private final native JavaScriptObject initializeResourceEngine(JavaScriptObject resource, JavaScriptObject stage, String packageName, String className)/*-{
