@@ -11,8 +11,6 @@
 	<script src="createjs/easeljs-0.4.1.min.js"/>
 	<script src="createjs/tweenjs-0.2.0.min.js"/>
 	<script src="createjs/movieclip-0.4.1.min.js"/>
-	<!-- <script src="createjs/preloadjs-0.1.0.min.js"/>
-	<script src="createjs/soundjs-0.2.0.min.js"/> -->
 	
 	<script src="createjs/ypreloadjs.js"/>
 	<script src="createjs/ysoundjs.js"/>
