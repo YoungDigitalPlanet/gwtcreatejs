@@ -67,7 +67,7 @@ public class CreateJsContent {
 		Ticker.addListener(listener);
 	}
 	
-	private void stopAllSounds(){
+	public void stopAllSounds(){
 		for(AssetFileInfo info: manifest.getAssetInfos(AssetFileInfo.SOUND)){
 			SoundJs.stop(info.getId());
 		}

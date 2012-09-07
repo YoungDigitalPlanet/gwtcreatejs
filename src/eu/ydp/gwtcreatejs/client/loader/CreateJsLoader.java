@@ -72,6 +72,12 @@ public class CreateJsLoader {
 		}
 	}
 	
+	public void stopSounds(){
+		if(content != null){
+			content.stopAllSounds();
+		}
+	}
+	
 	private void onMainifestLoad(Document document, String baseURL){
 		manifest = new Manifest(document, baseURL);
 		injectScripts(manifest.getScripts());
