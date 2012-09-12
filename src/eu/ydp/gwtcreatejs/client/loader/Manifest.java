@@ -25,6 +25,12 @@ public class Manifest {
 	
 	public static final String TAG_ASSETFILE = "assetfile";
 	
+	private static final String TAG_LIBRARIES = "libraries";
+	
+	private static final String TAG_LIBRARY = "library";
+	
+	private static final String TAG_LIBRARYFILE = "libraryfile";
+	
 	public static final String ATTR_VALUE = "value";
 	
 	public static final String ATTR_SRC = "src";
@@ -36,6 +42,8 @@ public class Manifest {
 	public static final String ATTR_NAME = "name";
 	
 	public static final String ATTR_PACKAGE = "package";
+	
+	public static final String ATTR_VERSION = "version";
 	
 	private static final String ENGINE_SUFFIX = "Engine";
 	
@@ -53,8 +61,10 @@ public class Manifest {
 	
 	private String engineClassName;
 	
-	public Manifest(Document document, String baseURL){
-		parseDocument(document, baseURL);
+	private List<LibraryInfo> libraryInfos;
+	
+	public Manifest(Document document, String baseURL, String libraryURL){
+		parseDocument(document, baseURL, libraryURL);
 	}
 	
 	public double getWidth(){
@@ -96,6 +106,10 @@ public class Manifest {
 		return assetInfos;
 	}
 	
+	public List<LibraryInfo> getLibraryInfos(){
+		return libraryInfos;
+	}
+	
 	public List<AssetFileInfo> getAssetInfos(String type){
 		List<AssetFileInfo> assets = new ArrayList<AssetFileInfo>();
 		
@@ -112,18 +126,45 @@ public class Manifest {
 		return getEngineClassName() != null;
 	}
 	
-	private void parseDocument(Document document, String baseURL){
+	private void parseDocument(Document document, String baseURL, String libraryURL){
 		Element element = document.getDocumentElement();
 		
 		parseProperties(getElementByTagName(element, TAG_PROPERTIES));
 		parseClass(getElementByTagName(element, TAG_CLASS));
 		parseAssetFiles(getElementByTagName(element, TAG_ASSETS), baseURL);
 		parseScriptFiles(getElementByTagName(element, TAG_SCRIPTS), baseURL);
+		parseLibraries(getElementByTagName(element, TAG_LIBRARIES), libraryURL);
 	}
 	
 	private void parseClass(Element element){
 		className = element.getAttribute(ATTR_NAME);
 		packageName = element.getAttribute(ATTR_PACKAGE);
+	}
+	
+	private void parseLibraries(Element element, String libraryURL){
+		libraryInfos = new ArrayList<LibraryInfo>();
+		NodeList libraryNodes = element.getElementsByTagName(TAG_LIBRARY);
+		
+		for (int i = 0; i < libraryNodes.getLength(); i++) {
+			Element libraryNode = (Element) libraryNodes.item(i);
+			String libraryVersion = libraryNode.getAttribute(ATTR_VERSION);
+			String libraryPackage = libraryNode.getAttribute(ATTR_PACKAGE);
+			LibraryInfo libraryInfo = new LibraryInfo(libraryVersion, libraryPackage, libraryURL);
+			
+			collectLibraryFiles(libraryNode, libraryInfo);
+			libraryInfos.add(libraryInfo);
+		}
+	}
+	
+	private void collectLibraryFiles(Element element, LibraryInfo libraryInfo){
+		NodeList libraryFileNodes = element.getElementsByTagName(TAG_LIBRARYFILE);
+		
+		for (int i = 0; i < libraryFileNodes.getLength(); i++) {
+			Element libraryFileNode = (Element) libraryFileNodes.item(i);
+			String src = libraryFileNode.getAttribute(ATTR_SRC);
+			
+			libraryInfo.addFilePath(src);
+		}
 	}
 	
 	private void parseProperties(Element element){

@@ -1,5 +1,6 @@
 package eu.ydp.gwtcreatejs.client.loader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.Callback;
@@ -28,8 +29,14 @@ public class CreateJsLoader {
 	
 	private CreateJsContent content;
 	
+	private String libraryURL;
+
 	public CreateJsLoader(){
 		initializeSound();
+	}
+	
+	public void setLibraryURL(String libraryURL) {
+		this.libraryURL = libraryURL;
 	}
 	
 	public void load(String path){
@@ -79,8 +86,38 @@ public class CreateJsLoader {
 	}
 	
 	private void onMainifestLoad(Document document, String baseURL){
-		manifest = new Manifest(document, baseURL);
-		injectScripts(manifest.getScripts());
+		manifest = new Manifest(document, baseURL, libraryURL);
+		injectScripts(getAllScriptList());
+	}
+	
+	private List<String> getAllScriptList(){
+		List<String> scriptList = new ArrayList<String>();
+		
+		appendScripts(scriptList);
+		appendLibraries(scriptList);
+		
+		return scriptList;
+	}
+	
+	private void appendScripts(List<String> list){
+		for (String script : manifest.getScripts()) {
+			list.add(script);
+		}
+	}
+	
+	private void appendLibraries(List<String> list){
+		for (LibraryInfo libraryInfo : manifest.getLibraryInfos()) {
+			
+			if(!libraryInfo.getFiles().isEmpty()){
+				initalizeLibrary(manifest.getPackageName(), 
+									libraryInfo.getPackageName(), 
+									libraryInfo.getNamespace());
+			}
+			
+			for (String librarySrc : libraryInfo.getFiles()) {
+				list.add(librarySrc);
+			}
+		}
 	}
 	
 	private void injectScripts(List<String> scripts){
@@ -144,6 +181,14 @@ public class CreateJsLoader {
 		}
 	}
 	
+	private final native void initalizeLibrary(String packageName, String libraryName, String libraryNamespace)/*-{
+		$wnd[packageName] = $wnd[packageName]||{};
+		$wnd[libraryNamespace] = $wnd[libraryNamespace]||{};
+		$wnd[packageName][libraryName] = $wnd[packageName][libraryName]||{};
+		$wnd[packageName][libraryName] = $wnd[libraryNamespace];
+		
+	}-*/;
+	
 	private final native void initializeSound()/*-{
 		if($wnd.playSound == undefined){
 			$wnd.playSound = function (name, loop) {
@@ -153,10 +198,8 @@ public class CreateJsLoader {
 	}-*/;
 	
 	private final native void addImage(JavaScriptObject image, String id, String packageName)/*-{
-		if($wnd.images == undefined)
-			$wnd.images = {};	
-		if($wnd.images[packageName] == undefined)
-			$wnd.images[packageName] = {};
+		$wnd.images = {}||$wnd.images;
+		$wnd.images[packageName] = {}||$wnd.images[packageName];
 		$wnd.images[packageName][id] = image;
 	}-*/;
 	
