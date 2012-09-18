@@ -10,7 +10,7 @@ import eu.ydp.gwtcreatejs.client.Ticker;
 
 public class CreateJsContent {
 	
-	private static final String WEBKIT_TAP_HIGHLIGHT_COLOR = "-webkit-tap-highlight-color";
+	private static final String WEBKIT_TAP_HIGHLIGHT_COLOR = "webkitTapHighlightColor";
 
 	private static final String OUTLINE = "outline";
 

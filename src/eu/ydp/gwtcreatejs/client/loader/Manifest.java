@@ -143,16 +143,19 @@ public class Manifest {
 	
 	private void parseLibraries(Element element, String libraryURL){
 		libraryInfos = new ArrayList<LibraryInfo>();
-		NodeList libraryNodes = element.getElementsByTagName(TAG_LIBRARY);
 		
-		for (int i = 0; i < libraryNodes.getLength(); i++) {
-			Element libraryNode = (Element) libraryNodes.item(i);
-			String libraryVersion = libraryNode.getAttribute(ATTR_VERSION);
-			String libraryPackage = libraryNode.getAttribute(ATTR_PACKAGE);
-			LibraryInfo libraryInfo = new LibraryInfo(libraryVersion, libraryPackage, libraryURL);
+		if(element != null){
+			NodeList libraryNodes = element.getElementsByTagName(TAG_LIBRARY);
 			
-			collectLibraryFiles(libraryNode, libraryInfo);
-			libraryInfos.add(libraryInfo);
+			for (int i = 0; i < libraryNodes.getLength(); i++) {
+				Element libraryNode = (Element) libraryNodes.item(i);
+				String libraryVersion = libraryNode.getAttribute(ATTR_VERSION);
+				String libraryPackage = libraryNode.getAttribute(ATTR_PACKAGE);
+				LibraryInfo libraryInfo = new LibraryInfo(libraryVersion, libraryPackage, libraryURL);
+				
+				collectLibraryFiles(libraryNode, libraryInfo);
+				libraryInfos.add(libraryInfo);
+			}
 		}
 	}
 	
@@ -177,21 +180,27 @@ public class Manifest {
 	
 	private void parseScriptFiles(Element element, String baseURL){
 		scripts = new ArrayList<String>();
-		NodeList scriptNodes = element.getElementsByTagName(TAG_SCRIPTFILE);
 		
-		for(int i = 0; i < scriptNodes.getLength(); i++){
-			String scriptSrc = ((Element)scriptNodes.item(i)).getAttribute(ATTR_SRC);
-			scripts.add(baseURL.concat(scriptSrc));
+		if(element != null){
+			NodeList scriptNodes = element.getElementsByTagName(TAG_SCRIPTFILE);
+			
+			for(int i = 0; i < scriptNodes.getLength(); i++){
+				String scriptSrc = ((Element)scriptNodes.item(i)).getAttribute(ATTR_SRC);
+				scripts.add(baseURL.concat(scriptSrc));
+			}
 		}
 	}
 	
 	private void parseAssetFiles(Element element, String baseURL){
 		assetInfos = new ArrayList<AssetFileInfo>();
-		NodeList assetNodes = element.getElementsByTagName(TAG_ASSETFILE);
 		
-		for(int i = 0; i < assetNodes.getLength(); i++){
-			AssetFileInfo info = new AssetFileInfo((Element)assetNodes.item(i), baseURL); // NOPMD by MKaldonek on 25.07.12 14:21
-			assetInfos.add(info);
+		if(element != null){
+			NodeList assetNodes = element.getElementsByTagName(TAG_ASSETFILE);
+			
+			for(int i = 0; i < assetNodes.getLength(); i++){
+				AssetFileInfo info = new AssetFileInfo((Element)assetNodes.item(i), baseURL); // NOPMD by MKaldonek on 25.07.12 14:21
+				assetInfos.add(info);
+			}
 		}
 	}
 	
