@@ -30,6 +30,8 @@ public class CreateJsLoader {
 	private CreateJsContent content;
 	
 	private String libraryURL;
+	
+	private int scriptsNumber;
 
 	public CreateJsLoader(){
 		initializeSound();
@@ -121,6 +123,7 @@ public class CreateJsLoader {
 	}
 	
 	private void injectScripts(List<String> scripts){
+		scriptsNumber = scripts.size();
 		injectCounter = 0;
 		
 		for(int i = 0; i < scripts.size(); i++){
@@ -152,7 +155,7 @@ public class CreateJsLoader {
 	private void onScriptInjectionSuccess(){
 		injectCounter++;
 		
-		if(injectCounter == manifest.getScripts().size()){
+		if(injectCounter == scriptsNumber){
 			initializeResource();
 		}
 	}
