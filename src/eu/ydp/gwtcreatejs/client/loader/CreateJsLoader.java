@@ -201,8 +201,8 @@ public class CreateJsLoader {
 	}-*/;
 	
 	private final native void addImage(JavaScriptObject image, String id, String packageName)/*-{
-		$wnd.images = {}||$wnd.images;
-		$wnd.images[packageName] = {}||$wnd.images[packageName];
+		$wnd.images = $wnd.images||{};
+		$wnd.images[packageName] = $wnd.images[packageName]||{};
 		$wnd.images[packageName][id] = image;
 	}-*/;
 	
