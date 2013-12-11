@@ -46,6 +46,8 @@ public class Manifest {
 	public static final String ATTR_VERSION = "version";
 	
 	private static final String ENGINE_SUFFIX = "Engine";
+
+	public static final String ATTR_ORDER = "order";
 	
 	private double width;
 	
@@ -55,7 +57,7 @@ public class Manifest {
 	
 	private String packageName;
 	
-	private List<String> scripts;
+	private List<ScriptFile> scripts;
 	
 	private List<AssetFileInfo> assetInfos;
 	
@@ -83,8 +85,8 @@ public class Manifest {
 		if(engineClassName == null){
 			String searchedName = className.concat(ENGINE_SUFFIX);
 			
-			for(String script: scripts){
-				if(script.indexOf(searchedName.concat(".js")) >= 0){
+			for(ScriptFile script: scripts){
+				if(script.getPath().indexOf(searchedName.concat(".js")) >= 0){
 					engineClassName = searchedName;
 					break;
 				}
@@ -98,7 +100,7 @@ public class Manifest {
 		return packageName;
 	}
 	
-	public List<String> getScripts(){
+	public List<ScriptFile> getScripts(){
 		return scripts;
 	}
 	
@@ -151,7 +153,8 @@ public class Manifest {
 				Element libraryNode = (Element) libraryNodes.item(i);
 				String libraryVersion = libraryNode.getAttribute(ATTR_VERSION);
 				String libraryPackage = libraryNode.getAttribute(ATTR_PACKAGE);
-				LibraryInfo libraryInfo = new LibraryInfo(libraryVersion, libraryPackage, libraryURL);
+				LibraryInfo libraryInfo = new LibraryInfo();
+				libraryInfo.initialize(libraryVersion, libraryPackage, libraryURL);
 				
 				collectLibraryFiles(libraryNode, libraryInfo);
 				libraryInfos.add(libraryInfo);
@@ -163,10 +166,11 @@ public class Manifest {
 		NodeList libraryFileNodes = element.getElementsByTagName(TAG_LIBRARYFILE);
 		
 		for (int i = 0; i < libraryFileNodes.getLength(); i++) {
-			Element libraryFileNode = (Element) libraryFileNodes.item(i);
-			String src = libraryFileNode.getAttribute(ATTR_SRC);
+			Element libraryFileNode = (Element) libraryFileNodes.item(i);			
+			ScriptFile scriptFile = new ScriptFile();
+			scriptFile.initialize(libraryFileNode);
 			
-			libraryInfo.addFilePath(src);
+			libraryInfo.addFile(scriptFile);
 		}
 	}
 	
@@ -179,14 +183,16 @@ public class Manifest {
 	}
 	
 	private void parseScriptFiles(Element element, String baseURL){
-		scripts = new ArrayList<String>();
+		scripts = new ArrayList<ScriptFile>();
 		
 		if(element != null){
 			NodeList scriptNodes = element.getElementsByTagName(TAG_SCRIPTFILE);
 			
 			for(int i = 0; i < scriptNodes.getLength(); i++){
-				String scriptSrc = ((Element)scriptNodes.item(i)).getAttribute(ATTR_SRC);
-				scripts.add(baseURL.concat(scriptSrc));
+				Element scriptNode = (Element) scriptNodes.item(i);				
+				ScriptFile scriptFile = new ScriptFile();
+				scriptFile.initialize(scriptNode, baseURL);								
+				scripts.add(scriptFile);
 			}
 		}
 	}

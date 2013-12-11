@@ -5,19 +5,19 @@ import java.util.List;
 
 public class LibraryInfo {
 
-	private final String version;
+	private String version;
 
-	private final String packageName;
+	private String packageName;
 	
-	private final List<String> files;
+	private List<ScriptFile> files;
 	
-	private final String baseURL;
+	private String baseURL;
 
-	public LibraryInfo(String version, String packageName, String baseURL){
+	public void initialize(String version, String packageName, String baseURL){
 		this.version = version.replaceAll("\\.",	"_");
 		this.packageName = packageName;
 		this.baseURL = baseURL;
-		this.files = new ArrayList<String>();
+		this.files = new ArrayList<ScriptFile>();
 	}
 	
 	public String getVersion() {
@@ -32,11 +32,12 @@ public class LibraryInfo {
 		return packageName + "_" + version;
 	}
 	
-	public void addFilePath(String path){
-		files.add(baseURL + getNamespace() + "/" + path);
+	public void addFile(ScriptFile file) {				
+		file.setPath(baseURL + getNamespace() + "/" + file.getPath());
+		files.add(file);
 	}
 	
-	public List<String> getFiles() {
+	public List<ScriptFile> getFiles() {
 		return files;
 	}
 	
