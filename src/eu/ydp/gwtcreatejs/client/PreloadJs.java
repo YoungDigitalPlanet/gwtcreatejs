@@ -17,7 +17,7 @@ public class PreloadJs extends JavaScriptObject {
 		var basePath = @com.google.gwt.core.client.GWT::getModuleBaseURL()();
 
 		$wnd.SoundJS.FlashPlugin.BASE_PATH = basePath + "createjs/assets/";
-		$wnd.SoundJS.registerPlugins([$wnd.SoundJS.ExternalPlugin, $wnd.SoundJS.HTMLAudioPlugin, $wnd.SoundJS.FlashPlugin]);
+		$wnd.SoundJS.registerPlugins([$wnd.SoundJS.ExternalPlugin, $wnd.SoundJS.FlashPlugin, $wnd.SoundJS.HTMLAudioPlugin]);
 		preload.installPlugin($wnd.SoundJS);
 
 		return preload;
