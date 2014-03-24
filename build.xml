@@ -84,7 +84,7 @@
 		<delete dir="${dist.dir}" />
 		<delete dir="${build.dir}" />
 		<delete dir="${ivylib.dir}" />
-		<delete>
+		<delete failonerror="false">
 			<fileset dir="${public.assets.dir}" includes="**/*.swf"/>
 		</delete>
 		<delete failonerror="false">
