@@ -87,7 +87,7 @@
 		<delete>
 			<fileset dir="${public.assets.dir}" includes="**/*.swf"/>
 		</delete>
-		<delete>
+		<delete failonerror="false">
 			<fileset dir="${public.dir}">
 				<include name="**/y*.js"/>
 			</fileset>
