@@ -45,7 +45,8 @@
 		<javac srcdir="${src.dir}"
         	destdir="${classes.dir}"
          	debug="on"
-         	source="1.5"
+         	source="1.7"
+			target="1.7"
 			encoding="utf8" >
 			<classpath refid="lib.path"/>
 		</javac>
