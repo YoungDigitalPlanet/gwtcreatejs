@@ -15,6 +15,6 @@
 	
 	<script src="createjs/ypreloadjs.js"/>
 	<script src="createjs/ysoundjs.js"/>
-	<script src="createjs/yflashplugin.js"/>
+	<!-- <script src="createjs/yflashplugin.js"/> -->
 	
 </module>

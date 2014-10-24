@@ -16,13 +16,14 @@ public class PreloadJs extends JavaScriptObject {
 		var preload = new $wnd.createjs.PreloadJS(useXHR2);
 		var basePath = @com.google.gwt.core.client.GWT::getModuleBaseURL()();
 
-		$wnd.SoundJS.FlashPlugin.BASE_PATH = basePath + "createjs/assets/";
-		$wnd.SoundJS.registerPlugins([$wnd.SoundJS.ExternalPlugin, $wnd.SoundJS.HTMLAudioPlugin, $wnd.SoundJS.FlashPlugin]);
+		//		$wnd.SoundJS.FlashPlugin.BASE_PATH = basePath + "createjs/assets/";
+		$wnd.SoundJS.registerPlugins([ $wnd.SoundJS.HTMLAudioPlugin ]);
 		preload.installPlugin($wnd.SoundJS);
 
 		return preload;
 	}-*/;
 
+	// snd
 	public static PreloadJs create(){
 		return create(false);
 	}
@@ -45,7 +46,11 @@ public class PreloadJs extends JavaScriptObject {
 	}-*/;
 
 	public final native void loadAsset(String src, String type, String id, boolean loadNow)/*-{
-		this.loadFile({"src":src, "type":type, "id":id}, loadNow);
+		this.loadFile({
+			"src" : src,
+			"type" : type,
+			"id" : id
+		}, loadNow);
 	}-*/;
 
 	public final native void loadFile(String path, boolean loadNow)/*-{
@@ -57,13 +62,13 @@ public class PreloadJs extends JavaScriptObject {
 	}-*/;
 
 	public final native void addCompleteHandler(CompleteHandler handler)/*-{
-		this.onComplete = function(event){
+		this.onComplete = function(event) {
 			handler.@eu.ydp.gwtcreatejs.client.handler.CompleteHandler::onComplete()();
 		}
 	}-*/;
 
 	public final native void addFileLoadHandler(FileLoadHandler handler)/*-{
-		this.onFileLoad = function(event){
+		this.onFileLoad = function(event) {
 			handler.@eu.ydp.gwtcreatejs.client.handler.FileLoadHandler::onFileLoad(Leu/ydp/gwtcreatejs/client/event/FileLoadEvent;)(event);
 		}
 	}-*/;
