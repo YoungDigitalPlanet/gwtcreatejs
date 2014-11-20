@@ -1,25 +1,23 @@
 <ivy-module version="2.0">
-  <info organisation="eu.ydp" module="gwtCreateJs">
-	<ivyauthor name="mkaldonek"/>
-	<description>gwtCreateJs</description>
-  </info>
-	<configurations>
-		<conf name="default"  description="gwtCreateJs jar file"/>
-		<conf name="test" visibility="private" description="test conf"/>
-  </configurations>
-  
-  <publications>
-  	<artifact name="gwtcreatejs" type="jar" conf="default" ext="jar"/>
-  </publications>
+    <info organisation="eu.ydp" module="gwtCreateJs">
+        <ivyauthor name="mkaldonek"/>
+        <description>gwtCreateJs</description>
+    </info>
+    <configurations>
+        <conf name="default" description="gwtCreateJs jar file"/>
+        <conf name="test" visibility="private" description="test conf"/>
+    </configurations>
 
-  <dependencies>  
-    <dependency org="com.google.gwt" name="gwt-user" rev="2.6.1" conf="default->default"/>  
-    <dependency org="com.google.gwt" name="gwt-dev" rev="2.6.1" conf="default->default"/>
-    <dependency org="eu.ydp" name="ydpgwtutils" rev="latest.integration" force="true"  conf="default, test->default"/>
-    <dependency org="org.hamcrest" name="hamcrest-library" rev="1.3"  conf="test->default"/>
-    <dependency org="org.mockito" name="mockito-all" rev="1.9.0" conf="test->default"/>
-	<dependency org="eu.ydp" name="jsfilerequest" rev="latest.integration"  conf="*->default"/>
-	<dependency org="eu.ydp" name="ySoundJs" rev="1.3.0+" conf="*->default"/>
-	<dependency org="eu.ydp" name="yPreloadJs" rev="latest.integration" conf="*->default"/>
-  </dependencies>
+    <publications>
+        <artifact name="gwtcreatejs" type="jar" conf="default" ext="jar"/>
+    </publications>
+
+    <dependencies>
+        <dependency org="com.google.gwt" name="gwt-user" rev="2.6.1" conf="default->default"/>
+        <dependency org="com.google.gwt" name="gwt-dev" rev="2.6.1" conf="default->default"/>
+        <dependency org="com.google.guava" name="guava-gwt" rev="18.0" conf="default->default"/>
+        <dependency org="eu.ydp" name="jsfilerequest" rev="latest.integration" conf="*->default"/>
+        <dependency org="eu.ydp" name="ySoundJs" rev="1.3.0+" conf="*->default"/>
+        <dependency org="eu.ydp" name="yPreloadJs" rev="latest.integration" conf="*->default"/>
+    </dependencies>
 </ivy-module>

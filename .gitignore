@@ -7,3 +7,7 @@ dist/
 /src/eu/ydp/gwtcreatejs/public/createjs/ysoundjs.js
 .settings/
 war/
+.idea
+*.iml
+
+gwt-unitCache/
