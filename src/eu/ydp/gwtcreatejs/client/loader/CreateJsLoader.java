@@ -185,7 +185,9 @@ public class CreateJsLoader {
 		try {
 			preload.loadManifest(manifest.getAssetInfos());
 		} catch (NullPointerException ex) {
-			Logger.getLogger(getClass().getName()).info(ex.getMessage());
+			Logger logger = Logger.getLogger(CreateJsLoader.class.getClass().getName());
+			logger.info(ex.getMessage());
+
 			// - required only in production compilation (aggressive compile)
 			// - this exception should never occured
 			// - without try and catch block manifest is null and nobody knows
