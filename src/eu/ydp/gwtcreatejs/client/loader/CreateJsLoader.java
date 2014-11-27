@@ -2,6 +2,7 @@ package eu.ydp.gwtcreatejs.client.loader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.GWT;
@@ -181,7 +182,16 @@ public class CreateJsLoader {
 		PreloadJs preload = PreloadJs.create();
 		preload.addCompleteHandler(new PreloadCompleteHandler());
 		preload.addFileLoadHandler(new PreloadFileLoadHandler());
-		preload.loadManifest(manifest.getAssetInfos());
+		try {
+			preload.loadManifest(manifest.getAssetInfos());
+		} catch (NullPointerException ex) {
+			Logger.getLogger(getClass().getName()).info(ex.getMessage());
+			// - required only in production compilation (aggressive compile)
+			// - this exception should never occured
+			// - without try and catch block manifest is null and nobody knows
+			// why.
+			// task YPUB-6703
+		}
 	}
 
 	private class PreloadCompleteHandler implements CompleteHandler{
@@ -202,24 +212,25 @@ public class CreateJsLoader {
 	}
 
 	private final native void initalizeLibrary(String packageName, String libraryName, String libraryNamespace)/*-{
-		$wnd[packageName] = $wnd[packageName]||{};
-		$wnd[libraryNamespace] = $wnd[libraryNamespace]||{};
-		$wnd[packageName][libraryName] = $wnd[packageName][libraryName]||{};
+		$wnd[packageName] = $wnd[packageName] || {};
+		$wnd[libraryNamespace] = $wnd[libraryNamespace] || {};
+		$wnd[packageName][libraryName] = $wnd[packageName][libraryName] || {};
 		$wnd[packageName][libraryName] = $wnd[libraryNamespace];
 
 	}-*/;
 
 	private final native void initializeSound()/*-{
-		if($wnd.playSound == undefined){
-			$wnd.playSound = function (name, loop) {
-				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0, loop);
+		if ($wnd.playSound == undefined) {
+			$wnd.playSound = function(name, loop) {
+				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0,
+						loop);
 			}
 		}
 	}-*/;
 
 	private final native void addImage(JavaScriptObject image, String id, String packageName)/*-{
-		$wnd.images = $wnd.images||{};
-		$wnd.images[packageName] = $wnd.images[packageName]||{};
+		$wnd.images = $wnd.images || {};
+		$wnd.images[packageName] = $wnd.images[packageName] || {};
 		$wnd.images[packageName][id] = image;
 	}-*/;
 
