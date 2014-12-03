@@ -12,3 +12,4 @@ war/
 .classpath
 .project
 gwt-unitCache/
+/bin/
