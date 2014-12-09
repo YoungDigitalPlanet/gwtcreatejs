@@ -1,16 +1,14 @@
 package eu.ydp.gwtcreatejs.client.scripts;
 
-import java.util.Collections;
-import java.util.Stack;
-
 import com.google.gwt.core.client.Callback;
+import java.util.Stack;
 
 public class SynchronousScriptsLoader {
 
-	private final Stack<ScriptsList> scripts;
-
 	private final ScriptInjectorWrapper scriptInjectorWrapper;
 	private final UrlConverter urlConverter;
+
+	private final Stack<ScriptUrl> scripts;
 
 	private final Callback<Void, Exception> callback = new Callback<Void, Exception>() {
 
@@ -24,11 +22,10 @@ public class SynchronousScriptsLoader {
 		}
 	};
 
-	public SynchronousScriptsLoader() {
+	public SynchronousScriptsLoader(Stack<ScriptUrl> scripts) {
+		this.scripts = scripts;
 		scriptInjectorWrapper = new ScriptInjectorWrapper();
 		urlConverter = new UrlConverter();
-		scripts = new Stack<>();
-		Collections.addAll(scripts, ScriptsList.values());
 	}
 
 	public void injectAll() {
