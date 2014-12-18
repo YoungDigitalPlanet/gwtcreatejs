@@ -183,7 +183,7 @@ public class CreateJsLoader {
 		preload.addCompleteHandler(new PreloadCompleteHandler());
 		preload.addFileLoadHandler(new PreloadFileLoadHandler());
 		try {
-			preload.loadManifest(manifest.getAssetInfos());
+		preload.loadManifest(manifest.getAssetInfos());
 		} catch (NullPointerException ex) {
 			Logger logger = Logger.getLogger(CreateJsLoader.class.getClass().getName());
 			logger.info(ex.getMessage());
@@ -214,25 +214,24 @@ public class CreateJsLoader {
 	}
 
 	private final native void initalizeLibrary(String packageName, String libraryName, String libraryNamespace)/*-{
-		$wnd[packageName] = $wnd[packageName] || {};
-		$wnd[libraryNamespace] = $wnd[libraryNamespace] || {};
-		$wnd[packageName][libraryName] = $wnd[packageName][libraryName] || {};
+		$wnd[packageName] = $wnd[packageName]||{};
+		$wnd[libraryNamespace] = $wnd[libraryNamespace]||{};
+		$wnd[packageName][libraryName] = $wnd[packageName][libraryName]||{};
 		$wnd[packageName][libraryName] = $wnd[libraryNamespace];
 
 	}-*/;
 
 	private final native void initializeSound()/*-{
-		if ($wnd.playSound == undefined) {
-			$wnd.playSound = function(name, loop) {
-				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0,
-						loop);
+		if($wnd.playSound == undefined){
+			$wnd.playSound = function (name, loop) {
+				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0, loop);
 			}
 		}
 	}-*/;
 
 	private final native void addImage(JavaScriptObject image, String id, String packageName)/*-{
-		$wnd.images = $wnd.images || {};
-		$wnd.images[packageName] = $wnd.images[packageName] || {};
+		$wnd.images = $wnd.images||{};
+		$wnd.images[packageName] = $wnd.images[packageName]||{};
 		$wnd.images[packageName][id] = image;
 	}-*/;
 

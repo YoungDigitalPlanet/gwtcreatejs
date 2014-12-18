@@ -9,5 +9,7 @@ dist/
 war/
 .idea
 *.iml
-
+.classpath
+.project
 gwt-unitCache/
+/bin/

@@ -1,12 +1,9 @@
 package eu.ydp.gwtcreatejs.client;
 
-import java.util.List;
-
 import com.google.gwt.core.client.JavaScriptObject;
-
-import eu.ydp.gwtcreatejs.client.handler.CompleteHandler;
-import eu.ydp.gwtcreatejs.client.handler.FileLoadHandler;
+import eu.ydp.gwtcreatejs.client.handler.*;
 import eu.ydp.gwtcreatejs.client.loader.AssetFileInfo;
+import java.util.List;
 
 public class PreloadJs extends JavaScriptObject {
 
@@ -16,13 +13,13 @@ public class PreloadJs extends JavaScriptObject {
 	public static native PreloadJs create(boolean useXHR2)/*-{
 															var preload = new $wnd.createjs.PreloadJS(useXHR2);
 															var basePath = @com.google.gwt.core.client.GWT::getModuleBaseURL()();
-															$wnd.SoundJS.registerPlugins([ $wnd.SoundJS.DefaultAudioPlugin ]);
+
+															$wnd.SoundJS.registerPlugins([$wnd.SoundJS.DefaultAudioPlugin]);
 															preload.installPlugin($wnd.SoundJS);
 
 															return preload;
 															}-*/;
 
-	// snd
 	public static PreloadJs create() {
 		return create(false);
 	}
@@ -45,11 +42,7 @@ public class PreloadJs extends JavaScriptObject {
 									}-*/;
 
 	public final native void loadAsset(String src, String type, String id, boolean loadNow)/*-{
-																							this.loadFile({
-																							"src" : src,
-																							"type" : type,
-																							"id" : id
-																							}, loadNow);
+																							this.loadFile({"src":src, "type":type, "id":id}, loadNow);
 																							}-*/;
 
 	public final native void loadFile(String path, boolean loadNow)/*-{
@@ -61,13 +54,13 @@ public class PreloadJs extends JavaScriptObject {
 									}-*/;
 
 	public final native void addCompleteHandler(CompleteHandler handler)/*-{
-																		this.onComplete = function(event) {
+																		this.onComplete = function(event){
 																		handler.@eu.ydp.gwtcreatejs.client.handler.CompleteHandler::onComplete()();
 																		}
 																		}-*/;
 
 	public final native void addFileLoadHandler(FileLoadHandler handler)/*-{
-																		this.onFileLoad = function(event) {
+																		this.onFileLoad = function(event){
 																		handler.@eu.ydp.gwtcreatejs.client.handler.FileLoadHandler::onFileLoad(Leu/ydp/gwtcreatejs/client/event/FileLoadEvent;)(event);
 																		}
 																		}-*/;
