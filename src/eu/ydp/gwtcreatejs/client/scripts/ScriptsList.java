@@ -2,7 +2,6 @@ package eu.ydp.gwtcreatejs.client.scripts;
 
 public enum ScriptsList implements ScriptUrl {
 
-	FLASH_PLUGIN("createjs/yflashplugin.js"),
 	SOUND_JS("createjs/ysoundjs.js"),
 	CREATE_JS("createjs/ypreloadjs.js"),
 	MOVIE_CLIP("createjs/movieclip-0.4.1.min.js"),

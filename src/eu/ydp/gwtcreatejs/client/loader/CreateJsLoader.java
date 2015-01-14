@@ -2,6 +2,7 @@ package eu.ydp.gwtcreatejs.client.loader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.GWT;
@@ -181,7 +182,18 @@ public class CreateJsLoader {
 		PreloadJs preload = PreloadJs.create();
 		preload.addCompleteHandler(new PreloadCompleteHandler());
 		preload.addFileLoadHandler(new PreloadFileLoadHandler());
+		try {
 		preload.loadManifest(manifest.getAssetInfos());
+		} catch (NullPointerException ex) {
+			Logger logger = Logger.getLogger(CreateJsLoader.class.getClass().getName());
+			logger.info(ex.getMessage());
+
+			// - required only in production compilation (aggressive compile)
+			// - this exception should never occured
+			// - without try and catch block manifest is null and nobody knows
+			// why.
+			// task YPUB-6703
+		}
 	}
 
 	private class PreloadCompleteHandler implements CompleteHandler{
