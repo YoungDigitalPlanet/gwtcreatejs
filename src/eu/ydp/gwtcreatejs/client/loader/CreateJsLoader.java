@@ -224,7 +224,7 @@ public class CreateJsLoader {
 	private final native void initializeSound()/*-{
 		if($wnd.playSound == undefined){
 			$wnd.playSound = function (name, loop) {
-				$wnd.SoundJS.play(name, $wnd.SoundJS.INTERRUPT_EARLY, 0, 0, loop);
+				$wnd.SoundJS.play(name, 0, 0, 0, loop);
 			}
 		}
 	}-*/;
