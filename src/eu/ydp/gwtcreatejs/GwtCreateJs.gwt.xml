@@ -9,6 +9,6 @@
     <inherits name="com.google.common.collect.Collect"/>
 
     <entry-point class='eu.ydp.gwtcreatejs.client.CreateJsEntryPoint'/>
-    
+
     <source path="client"/>
 </module>
