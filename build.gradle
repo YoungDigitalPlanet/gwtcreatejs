@@ -34,7 +34,7 @@ dependencies {
     compile group: 'com.google.gwt', name: 'gwt-servlet', version: '2.7.0'
     compile group: 'com.google.gwt', name: 'gwt-user', version: '2.7.0'
     compile group: 'com.google.gwt', name: 'gwt-dev', version: '2.7.0'
-    compile group: 'com.google.guava', name: 'guava-gw', version: '18.0'
+    compile group: 'com.google.guava', name: 'guava-gwt', version: '18.0'
     compile group: 'eu.ydp', name: 'jsfilerequest', version: '2.0.0'
 
     compile group: 'org.ow2.asm', name: 'asm', version: '5.0.3'

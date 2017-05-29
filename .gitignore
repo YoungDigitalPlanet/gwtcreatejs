@@ -1,15 +1,5 @@
 build/
-ivy-lib/
-dist/
-/src/eu/ydp/gwtcreatejs/public/createjs/assets/FlashAudioPlugin.swf
-/src/eu/ydp/gwtcreatejs/public/createjs/yflashplugin.js
-/src/eu/ydp/gwtcreatejs/public/createjs/ypreloadjs.js
-/src/eu/ydp/gwtcreatejs/public/createjs/ysoundjs.js
-.settings/
-war/
+.idea/
+.gradle/
 .idea
 *.iml
-.classpath
-.project
-gwt-unitCache/
-/bin/
